@@ -1,24 +1,23 @@
+import 'bootstrap/dist/css/bootstrap.css'
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import Row from './component/Row'
+import Check from './component/Check'
+import Wordle from './component/Wordle';
+
 
 function App() {
+
+  const [solution, setSolution] = useState('money')
+
   return (
+    <>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Wordle (Lingo)</h1>
+      {solution && <Wordle solution={solution}/>}
     </div>
+    </>
   );
 }
 
