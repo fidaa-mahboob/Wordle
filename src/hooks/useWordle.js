@@ -10,7 +10,26 @@ const useWordle = (solution) => {
     const [isCorrect, setIsCorrect] = useState(false)
 
     const formatGuess = () => {
-        console.log('formatting the guess - ', currentGuess)
+        let solutionArr = [...solution]
+        let formatguess = [...currentGuess].map((l) => {
+            return {key: l, colour: 'grey'}
+        })
+
+        formatguess.forEach((obj, idx) => {
+            if(solutionArr[idx] === obj.key){
+                obj.colour = 'green'
+                solutionArr[idx] = null
+            } 
+        })
+
+        formatguess.forEach((obj, idx) => {
+            if(solutionArr.includes(obj.key) && obj.colour !== 'green'){
+                formatguess[idx].colour = 'yellow'
+                solutionArr[solutionArr.indexOf(obj.key)] = null
+            }
+        })      
+
+        return formatguess
     }
 
     const addNewGuess = () => {
@@ -21,6 +40,7 @@ const useWordle = (solution) => {
         if(key === 'Enter'){
             if(turn > 5){
                 console.log('You have used up your guesses')
+                return
             }
 
             if( history.includes(currentGuess)){
@@ -32,6 +52,9 @@ const useWordle = (solution) => {
                 return 
             }
         }
+
+        const formatted = formatGuess()
+        console.log(formatted)
 
         if(key === 'Backspace'){
             setCurrentGuess(prev => {return prev.slice(0, -1)})
