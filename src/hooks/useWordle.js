@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 const useWordle = (solution) => {
     const [turn, setTurn] = useState(0)
     const [currentGuess, setCurrentGuess] = useState('')
-    const [guesses, setGuesses] = useState([])
+    const [guesses, setGuesses] = useState([...Array(6)])
     const [history, setHistory] = useState([])
     const [isCorrect, setIsCorrect] = useState(false)
 
@@ -32,8 +32,26 @@ const useWordle = (solution) => {
         return formatguess
     }
 
-    const addNewGuess = () => {
+    const addNewGuess = (formattedguess) => {
+        if(currentGuess === solution){
+            setIsCorrect(true)
+        }
 
+        setGuesses((prevGuess) => {
+            let newGuesses = [...prevGuess]
+            newGuesses[turn] = formattedguess
+            return newGuesses
+        })
+
+        setHistory((prevHistory) => {
+            return [...prevHistory, formattedguess]
+        })
+
+        setTurn((prevTurn) => {
+            return prevTurn + 1
+        })
+
+        setCurrentGuess('')
     }
 
     const handleKeyUp = ({key}) => {
@@ -51,10 +69,10 @@ const useWordle = (solution) => {
                 console.log("Word must be 5 character long")
                 return 
             }
-        }
 
-        const formatted = formatGuess()
-        console.log(formatted)
+            const formatted = formatGuess()
+            addNewGuess(formatted)
+        }
 
         if(key === 'Backspace'){
             setCurrentGuess(prev => {return prev.slice(0, -1)})

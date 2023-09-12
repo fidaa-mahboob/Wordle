@@ -3,8 +3,9 @@ import './Row.css'
 
 const Check = () => {
   return (
-    <div className='check-box'>Check</div>
+    <div></div>
   )
+  
 }
 
 export default Check

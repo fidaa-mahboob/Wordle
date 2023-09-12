@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import './Row.css'
-import Check from './Check'
 
-const Row = () => {
-  const [value, setValue] = useState('')
-
-  useEffect(() => {
-    window.addEventListener('keyup', (e) => {
-      setValue(e.target.value)
-    })
-  })
+const Row = ({guess}) => {
+ 
+  if(guess){
+    return(
+      <div className='row past'>
+        {
+          guess.map((l, i) => {
+            return <div key={i} className={l.colour}>{l.key}</div>
+          })
+        }
+      </div>
+    )
+  }
 
   return (
-    <div className='letter-row'>
-      <div className='letter-box'></div>
-      <div className='letter-box'></div>
-      <div className='letter-box'></div>
-      <div className='letter-box'></div>
-      <div className='letter-box'></div>
-      <Check/> 
+    <div className='row'>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
   )
 }
