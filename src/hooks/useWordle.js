@@ -44,7 +44,7 @@ const useWordle = (solution) => {
         })
 
         setHistory((prevHistory) => {
-            return [...prevHistory, formattedguess]
+            return [...prevHistory, currentGuess]
         })
 
         setTurn((prevTurn) => {
